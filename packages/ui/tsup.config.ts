@@ -7,7 +7,9 @@ export default defineConfig((options: Options) => ({
   format: ["esm"],
   dts: true,
   minify: true,
-  clean: true,
+  clean: true,banner: {
+    js: "'use client'",
+  },
   external: ["react"],
   ...options,
 }));
