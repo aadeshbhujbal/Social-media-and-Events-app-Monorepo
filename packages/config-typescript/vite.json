@@ -3,6 +3,9 @@
   "extends": "./base.json",
   "Display": "Vite",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler",
+    "composite": true,
     "allowJs": false,
     "esModuleInterop": false,
     "jsx": "react",
