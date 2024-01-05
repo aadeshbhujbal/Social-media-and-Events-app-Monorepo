@@ -4,11 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Loader from "@repo/ui/components/shared/Loader";
 import { Link } from "react-router-dom";
-
+import { useToast } from "@repo/ui/components/ui/use-toast";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,10 +15,14 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 export const SignupForm = () => {
+  const { toast } = useToast();
+
   const isLoading = false;
 
+  // 1. Define a form with the validation schema.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
@@ -34,8 +37,14 @@ export const SignupForm = () => {
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    // const newUser = await createUserAccount(values);
-    console.log(values);
+    const newUser = await createUserAccount(values);
+
+    if (!newUser) {
+      return toast({
+        title: "Signup Failed Please Try Again",
+      });
+    }
+    // const session = await signInAccount();
   }
   return (
     <Form {...form}>
