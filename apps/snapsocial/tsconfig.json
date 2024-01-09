@@ -30,7 +30,7 @@
     }
   },
   "include": ["src"],
-  "extends": "@repo/typescript-config/vite.json",
+  "extends": "@repo/typescript-config/vite.json"
 
   // "references": [{ "path": "./tsconfig.node.json" }]
 }
